@@ -20,7 +20,7 @@
         </activity>
         <activity android:name=".ledControl" />
         <activity android:name=".MenuActivity" />
-        <activity android:name=".MonitorActivity"></activity>
+        <activity android:name="com.android.sumonitor2.MonitorActivity" />
     </application>
 
 </manifest>

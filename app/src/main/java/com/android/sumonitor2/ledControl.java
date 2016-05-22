@@ -1,176 +1,176 @@
 package com.android.sumonitor2;
 
 
-import android.support.v7.app.ActionBarActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+    import android.support.v7.app.ActionBarActivity;
+    import android.os.Bundle;
+    import android.view.Menu;
+    import android.view.MenuItem;
 
-import android.bluetooth.BluetoothSocket;
-import android.content.Intent;
-import android.view.View;
-import android.widget.Button;
-import android.widget.SeekBar;
-import android.widget.TextView;
-import android.widget.Toast;
-import android.app.ProgressDialog;
-import android.bluetooth.BluetoothAdapter;
-import android.bluetooth.BluetoothDevice;
-import android.os.AsyncTask;
+    import android.bluetooth.BluetoothSocket;
+    import android.content.Intent;
+    import android.view.View;
+    import android.widget.Button;
+    import android.widget.SeekBar;
+    import android.widget.TextView;
+    import android.widget.Toast;
+    import android.app.ProgressDialog;
+    import android.bluetooth.BluetoothAdapter;
+    import android.bluetooth.BluetoothDevice;
+    import android.os.AsyncTask;
 
-import java.io.IOException;
-import java.util.UUID;
+    import java.io.IOException;
+    import java.util.UUID;
 
 
-public class ledControl extends ActionBarActivity {
+    public class ledControl extends ActionBarActivity {
 
-    Button btnOn, btnOff, btnDis, btnizq, btnder;
-    SeekBar brightness;
-    TextView lumn;
-    String address = null;
-    private ProgressDialog progress;
-    BluetoothAdapter myBluetooth = null;
-    BluetoothSocket btSocket = null;
-    private boolean isBtConnected = false;
-    //SPP UUID. Look for it
-    static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
+        Button btnOn, btnOff, btnDis, btnizq, btnder;
+        SeekBar brightness;
+        TextView lumn;
+        String address = null;
+        private ProgressDialog progress;
+        BluetoothAdapter myBluetooth = null;
+        BluetoothSocket btSocket = null;
+        private boolean isBtConnected = false;
+        //SPP UUID. Look for it
+        static final UUID myUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB");
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        @Override
+        protected void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
-        Intent newint = getIntent();
-        address = newint.getStringExtra(MenuActivity.EXTRA_ADDRESS); //receive the address of the bluetooth device
+            Intent newint = getIntent();
+            address = newint.getStringExtra(MenuActivity.EXTRA_ADDRESS); //receive the address of the bluetooth device
 
-        //vista de nuevo activity
-        setContentView(R.layout.activity_led_control);
+            //vista de nuevo activity
+            setContentView(R.layout.activity_led_control);
 
-        //botones
-        btnOn = (Button) findViewById(R.id.button2);
-        btnOff = (Button) findViewById(R.id.button3);
-        btnDis = (Button) findViewById(R.id.button4);
-        btnizq= (Button) findViewById(R.id.button5);
-        btnder=(Button) findViewById(R.id.button6);
+            //botones
+            btnOn = (Button) findViewById(R.id.button2);
+            btnOff = (Button) findViewById(R.id.button3);
+            btnDis = (Button) findViewById(R.id.button4);
+            btnizq= (Button) findViewById(R.id.button5);
+            btnder=(Button) findViewById(R.id.button6);
 //..............
 
-        new ConnectBT().execute(); //Call the class to connect
+            new ConnectBT().execute(); //Call the class to connect
 
-        //commands to be sent to bluetooth
-        btnOn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                turnOnLed();      //method to turn on
-            }
-        });
-        btnOff.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                turnOffLed();   //method to turn off
-            }
-        });
-        btnDis.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Disconnect(); //close connection
-            }
-        });
-        btnizq.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                izquierda();      //method to turn on
-            }
-        });
-        btnder.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                derecha();      //method to turn on
-            }
-        });
-    }
+            //commands to be sent to bluetooth
+            btnOn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    turnOnLed();      //method to turn on
+                }
+            });
+            btnOff.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    turnOffLed();   //method to turn off
+                }
+            });
+            btnDis.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Disconnect(); //close connection
+                }
+            });
+            btnizq.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    izquierda();      //method to turn on
+                }
+            });
+            btnder.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    derecha();      //method to turn on
+                }
+            });
+        }
 
 //yes
 
 
 
-    //yes
-    private void Disconnect()
-    {
-        if (btSocket!=null) //If the btSocket is busy
+        //yes
+        private void Disconnect()
         {
-            try
+            if (btSocket!=null) //If the btSocket is busy
             {
-                btSocket.close(); //close connection
+                try
+                {
+                    btSocket.close(); //close connection
+                }
+                catch (IOException e)
+                { msg("Error");}
             }
-            catch (IOException e)
-            { msg("Error");}
-        }
-        finish(); //return to the first layout
+            finish(); //return to the first layout
 
-    }
-    //yes
-    private void turnOffLed()
-    {
-        if (btSocket!=null)
+        }
+        //yes
+        private void turnOffLed()
         {
-            try
+            if (btSocket!=null)
             {
-                btSocket.getOutputStream().write("TF".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
+                try
+                {
+                    btSocket.getOutputStream().write("TF".toString().getBytes());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                }
             }
         }
-    }
-    //yes
-    private void turnOnLed()
-    {
-        if (btSocket!=null)
+        //yes
+        private void turnOnLed()
         {
-            try
+            if (btSocket!=null)
             {
-                btSocket.getOutputStream().write("TO".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
+                try
+                {
+                    btSocket.getOutputStream().write("TO".toString().getBytes());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                }
             }
         }
-    }
-    private void derecha()
-    {
-        if (btSocket!=null)
+        private void derecha()
         {
-            try
+            if (btSocket!=null)
             {
-                btSocket.getOutputStream().write("DER".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
+                try
+                {
+                    btSocket.getOutputStream().write("DER".toString().getBytes());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                }
             }
         }
-    }
-    private void izquierda()
-    {
-        if (btSocket!=null)
+        private void izquierda()
         {
-            try
+            if (btSocket!=null)
             {
-                btSocket.getOutputStream().write("IZQ".toString().getBytes());
-            }
-            catch (IOException e)
-            {
-                msg("Error");
+                try
+                {
+                    btSocket.getOutputStream().write("IZQ".toString().getBytes());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                }
             }
         }
-    }
 
-    // YES... fast way to call Toast
-    private void msg(String s)
-    {
-        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
-    }
+        // YES... fast way to call Toast
+        private void msg(String s)
+        {
+            Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+        }
 
     /*
     @Override
@@ -197,53 +197,53 @@ public class ledControl extends ActionBarActivity {
     }
 */
 
-    //yes
-    private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
-    {
-        private boolean ConnectSuccess = true; //para ver si ests conectado
-
-        @Override
-        protected void onPreExecute()
+        //yes
+        private class ConnectBT extends AsyncTask<Void, Void, Void>  // UI thread
         {
-            progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //mostrar un dialogo de proceso
-        }
+            private boolean ConnectSuccess = true; //para ver si ests conectado
 
-        @Override
-        protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
-        {
-            try
+            @Override
+            protected void onPreExecute()
             {
-                if (btSocket == null || !isBtConnected)
+                progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //mostrar un dialogo de proceso
+            }
+
+            @Override
+            protected Void doInBackground(Void... devices) //while the progress dialog is shown, the connection is done in background
+            {
+                try
                 {
-                    myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
-                    BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
-                    btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
-                    BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
-                    btSocket.connect();//start connection
+                    if (btSocket == null || !isBtConnected)
+                    {
+                        myBluetooth = BluetoothAdapter.getDefaultAdapter();//get the mobile bluetooth device
+                        BluetoothDevice dispositivo = myBluetooth.getRemoteDevice(address);//connects to the device's address and checks if it's available
+                        btSocket = dispositivo.createInsecureRfcommSocketToServiceRecord(myUUID);//create a RFCOMM (SPP) connection
+                        BluetoothAdapter.getDefaultAdapter().cancelDiscovery();
+                        btSocket.connect();//start connection
+                    }
                 }
+                catch (IOException e)
+                {
+                    ConnectSuccess = false;//if the try failed, you can check the exception here
+                }
+                return null;
             }
-            catch (IOException e)
+            @Override
+            protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
             {
-                ConnectSuccess = false;//if the try failed, you can check the exception here
-            }
-            return null;
-        }
-        @Override
-        protected void onPostExecute(Void result) //after the doInBackground, it checks if everything went fine
-        {
-            super.onPostExecute(result);
+                super.onPostExecute(result);
 
-            if (!ConnectSuccess)
-            {
-                msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
-                finish();
+                if (!ConnectSuccess)
+                {
+                    msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                    finish();
+                }
+                else
+                {
+                    msg("Connected.");
+                    isBtConnected = true;
+                }
+                progress.dismiss();
             }
-            else
-            {
-                msg("Connected.");
-                isBtConnected = true;
-            }
-            progress.dismiss();
         }
-    }
 }
