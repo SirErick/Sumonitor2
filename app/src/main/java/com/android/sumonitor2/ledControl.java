@@ -40,7 +40,7 @@ public class ledControl extends ActionBarActivity {
         super.onCreate(savedInstanceState);
 
         Intent newint = getIntent();
-        address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS); //receive the address of the bluetooth device
+        address = newint.getStringExtra(MenuActivity.EXTRA_ADDRESS); //receive the address of the bluetooth device
 
         //vista de nuevo activity
         setContentView(R.layout.activity_led_control);
