@@ -105,6 +105,7 @@ public class DeviceList extends ActionBarActivity
             // hacer un nuevo intent para comenzar otro activity
 
             Intent m = new Intent(DeviceList.this, MenuActivity.class);
+
             //Change the activity.
             m.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
             startActivity(m);
