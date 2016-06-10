@@ -34,5 +34,13 @@
             android:padding="100dp"
             android:id="@+id/buttonMonitor"
             android:layout_gravity="center_horizontal" />
+
+        <Button
+            android:layout_width="259dp"
+            android:layout_height="wrap_content"
+            android:text="Ver Registro"
+            android:id="@+id/button8"
+            android:onClick="VerRegistro"
+            android:layout_gravity="center_horizontal" />
     </LinearLayout>
 </RelativeLayout>

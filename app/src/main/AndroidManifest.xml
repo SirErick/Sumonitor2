@@ -11,16 +11,18 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".DeviceList">
+        <activity android:name=".RegistroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".DeviceList" />
         <activity android:name=".ledControl" />
         <activity android:name=".MenuActivity" />
-        <activity android:name="com.android.sumonitor2.MonitorActivity" />
+        <activity android:name=".MonitorActivity"></activity>
+        <activity android:name=".MuestraActivity"></activity>
     </application>
 
 </manifest>

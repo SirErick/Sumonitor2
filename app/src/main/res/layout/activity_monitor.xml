@@ -85,4 +85,12 @@
         android:layout_alignTop="@+id/buttonOn"
         android:layout_centerHorizontal="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTRAR MOVIMIENTO"
+        android:id="@+id/buttonEscribir"
+        android:layout_above="@+id/testView1"
+        android:layout_centerHorizontal="true" />
+
 </RelativeLayout>

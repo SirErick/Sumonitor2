@@ -5,14 +5,17 @@ package com.android.sumonitor2;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.util.UUID;
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -21,10 +24,10 @@ import android.widget.Toast;
 
 public class MonitorActivity extends Activity {
 
-    Button btnOn, btnOff, btnTracking;
+    Button btnOn, btnOff, btnTracking,btEscribir;
     TextView txtArduino, txtString, txtStringLength, sensorView0, sensorView1, sensorView2, sensorView3;
     Handler bluetoothIn;
-
+    String sensor0,sensor1,sensor2,sensor3,equipo="",nombre="";
     final int handlerState = 0;                        //used to identify handler message
     private BluetoothAdapter btAdapter = null;
     private BluetoothSocket btSocket = null;
@@ -44,6 +47,13 @@ public class MonitorActivity extends Activity {
 
         setContentView(R.layout.activity_monitor);
 
+        Intent newint = getIntent();
+        Intent newint2= getIntent();
+        equipo = String.valueOf(newint.getStringExtra(MenuActivity.EQUIPO));
+        nombre= String.valueOf(newint2.getStringExtra(MenuActivity.NOMBRE));
+
+
+        Toast.makeText(getBaseContext(), equipo+" "+nombre, Toast.LENGTH_SHORT).show();
         //Link the buttons and textViews to respective views
         btnOn = (Button) findViewById(R.id.buttonOn);
         btnOff = (Button) findViewById(R.id.buttonOff);
@@ -54,6 +64,15 @@ public class MonitorActivity extends Activity {
         sensorView1 = (TextView) findViewById(R.id.sensorView1);
         sensorView2 = (TextView) findViewById(R.id.sensorView2);
         sensorView3 = (TextView) findViewById(R.id.sensorView3);
+
+        btEscribir=(Button) findViewById(R.id.buttonEscribir);
+        btEscribir.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                escribirFicheroMemoriaInterna();
+            }
+        });
+
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -69,10 +88,10 @@ public class MonitorActivity extends Activity {
 
                         if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
                         {
-                            String sensor0 = recDataString.substring(1, 5);             //get sensor value from string between indices 1-5
-                            String sensor1 = recDataString.substring(6, 10);            //same again...
-                            String sensor2 = recDataString.substring(11, 15);
-                            String sensor3 = recDataString.substring(16, 20);
+                             sensor0 = recDataString.substring(1, 5);             //get sensor value from string between indices 1-5
+                            sensor1 = recDataString.substring(6, 10);            //same again...
+                            sensor2 = recDataString.substring(11, 15);
+                            sensor3 = recDataString.substring(16, 20);
 
                             sensorView0.setText(" Sensor 0 Voltage = " + sensor0 + "V");    //update the textviews with sensor values
                             sensorView1.setText(" Sensor 1 Voltage = " + sensor1 + "V");
@@ -148,6 +167,31 @@ public class MonitorActivity extends Activity {
 
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
         //creates secure outgoing connecetion with BT device using UUID
+    }
+    private void escribirFicheroMemoriaInterna()
+    {
+        OutputStreamWriter escritor=null;
+        try
+        {
+            escritor=new OutputStreamWriter(openFileOutput("pruebaFichero.txt", Context.MODE_APPEND));
+
+            escritor.write(equipo+";"+nombre+";"+sensor0+";"+sensor1+";"+sensor2+";"+sensor3+"\n");
+
+
+        }
+        catch (Exception ex)
+        {
+            Log.e("erick", "Error al escribir fichero a memoria interna");
+        }
+        finally
+        {
+            try {
+                if(escritor!=null)
+                    escritor.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override

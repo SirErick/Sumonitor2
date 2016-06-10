@@ -28,10 +28,12 @@ public class DeviceList extends ActionBarActivity
     Button btnPaired;
     ListView devicelist;
     //Bluetooth
+    public static String EQUIPO="EQUIPO",NOMBRE="NOMBRE";
     private BluetoothAdapter myBluetooth = null;
     private Set<BluetoothDevice> pairedDevices;
     private OutputStream outStream =null;
     public static String EXTRA_ADDRESS = "device_address";
+    String equipo="",nombre="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -39,6 +41,9 @@ public class DeviceList extends ActionBarActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_device_list);
 
+        Intent newint = getIntent();
+        equipo = String.valueOf(newint.getStringExtra(RegistroActivity.EQUIPO));
+        nombre= String.valueOf(newint.getStringExtra(RegistroActivity.NOMBRE));
         //Clases
         btnPaired = (Button)findViewById(R.id.button);
         devicelist = (ListView)findViewById(R.id.listView);
@@ -73,6 +78,8 @@ public class DeviceList extends ActionBarActivity
 
     private void pairedDevicesList()
     {
+
+
         pairedDevices = myBluetooth.getBondedDevices();
         ArrayList list = new ArrayList();
 
@@ -108,6 +115,8 @@ public class DeviceList extends ActionBarActivity
             Intent m = new Intent(DeviceList.this, MenuActivity.class);
 
             //Change the activity.
+            m.putExtra(EQUIPO,equipo);
+            m.putExtra(NOMBRE,nombre);
             m.putExtra(EXTRA_ADDRESS, address); //this will be received at ledControl (class) Activity
             startActivity(m);
         }
