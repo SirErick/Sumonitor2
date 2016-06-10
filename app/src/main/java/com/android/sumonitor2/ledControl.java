@@ -205,7 +205,7 @@ package com.android.sumonitor2;
             @Override
             protected void onPreExecute()
             {
-                progress = ProgressDialog.show(ledControl.this, "Connecting...", "Please wait!!!");  //mostrar un dialogo de proceso
+                progress = ProgressDialog.show(ledControl.this, "Conectando...", "Espere!!!");  //mostrar un dialogo de proceso
             }
 
             @Override

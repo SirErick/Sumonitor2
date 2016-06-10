@@ -21,7 +21,7 @@ import android.widget.Toast;
 
 public class MonitorActivity extends Activity {
 
-    Button btnOn, btnOff;
+    Button btnOn, btnOff, btnTracking;
     TextView txtArduino, txtString, txtStringLength, sensorView0, sensorView1, sensorView2, sensorView3;
     Handler bluetoothIn;
 
@@ -47,6 +47,7 @@ public class MonitorActivity extends Activity {
         //Link the buttons and textViews to respective views
         btnOn = (Button) findViewById(R.id.buttonOn);
         btnOff = (Button) findViewById(R.id.buttonOff);
+        btnTracking = (Button) findViewById(R.id.buttonTracking);
         txtString = (TextView) findViewById(R.id.txtString);
         txtStringLength = (TextView) findViewById(R.id.testView1);
         sensorView0 = (TextView) findViewById(R.id.sensorView0);
@@ -92,15 +93,53 @@ public class MonitorActivity extends Activity {
         // Set up onClick listeners for buttons to send 1 or 0 to turn on/off LED
         btnOff.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                mConnectedThread.write("0");    // Send "0" via Bluetooth
-                Toast.makeText(getBaseContext(), "Turn off LED", Toast.LENGTH_SHORT).show();
+                if (btSocket!=null)
+                {
+                    try
+                    {
+                        btSocket.getOutputStream().write("INICIO".toString().getBytes());
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                }
+                Toast.makeText(getBaseContext(), "PELEA INICIADA", Toast.LENGTH_SHORT).show();
             }
         });
 
         btnOn.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                mConnectedThread.write("1");    // Send "1" via Bluetooth
-                Toast.makeText(getBaseContext(), "Turn on LED", Toast.LENGTH_SHORT).show();
+                if (btSocket!=null)
+                {
+                    try
+                    {
+                        btSocket.getOutputStream().write("FIN".toString().getBytes());
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                }
+                Toast.makeText(getBaseContext(), "PELEA TERMINADA", Toast.LENGTH_SHORT).show();
+
+            }
+        });
+        btnTracking.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                if (btSocket!=null)
+                {
+                    try
+                    {
+                        btSocket.getOutputStream().write("TRACKING".toString().getBytes());
+                    }
+                    catch (IOException e)
+                    {
+                        msg("Error");
+                    }
+                }
+                Toast.makeText(getBaseContext(), "TRACKING ACTIVADO", Toast.LENGTH_SHORT).show();
+
             }
         });
     }
@@ -149,7 +188,10 @@ public class MonitorActivity extends Activity {
         //If it is not an exception will be thrown in the write method and finish() will be called
         mConnectedThread.write("x");
     }
-
+    private void msg(String s)
+    {
+        Toast.makeText(getApplicationContext(),s,Toast.LENGTH_LONG).show();
+    }
     @Override
     public void onPause()
     {
@@ -220,7 +262,7 @@ public class MonitorActivity extends Activity {
                 mmOutStream.write(msgBuffer);                //write bytes over BT connection via outstream
             } catch (IOException e) {
                 //if you cannot write, close the application
-                Toast.makeText(getBaseContext(), "Connection Failure", Toast.LENGTH_LONG).show();
+                Toast.makeText(getBaseContext(), "Conexion fallida", Toast.LENGTH_LONG).show();
                 finish();
 
             }
