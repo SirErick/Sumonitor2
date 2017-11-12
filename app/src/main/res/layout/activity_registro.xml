@@ -10,20 +10,20 @@
     android:orientation="vertical"
     tools:context="com.android.sumonitor2.RegistroActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="SUMONITOR"
-        android:padding="80dp"
-        android:id="@+id/textView3"
-        android:layout_gravity="center_horizontal" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/sumo"
+        android:layout_below="@+id/textView2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Equipo"
+        android:text="EQUIPO"
         android:id="@+id/textView4" />
 
     <EditText

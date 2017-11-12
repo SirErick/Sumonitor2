@@ -13,17 +13,22 @@ import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 public class MonitorActivity extends Activity {
-
+    Drawable drawable1 ;
+    Drawable drawable2 ;
+    double valorSensor=0;
+    ImageView iv;
     Button btnOn, btnOff, btnTracking,btEscribir;
     TextView txtArduino, txtString, txtStringLength, sensorView0, sensorView1, sensorView2, sensorView3;
     Handler bluetoothIn;
@@ -46,6 +51,11 @@ public class MonitorActivity extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_monitor);
+
+        drawable1 = this.getResources().getDrawable(R.drawable.negro);
+        drawable2 = this.getResources().getDrawable(R.drawable.blanco);
+
+        iv=(ImageView)findViewById(R.id.imageView);
 
         Intent newint = getIntent();
         Intent newint2= getIntent();
@@ -89,14 +99,23 @@ public class MonitorActivity extends Activity {
                         if (recDataString.charAt(0) == '#')                             //if it starts with # we know it is what we are looking for
                         {
                              sensor0 = recDataString.substring(1, 5);             //get sensor value from string between indices 1-5
-                            sensor1 = recDataString.substring(6, 10);            //same again...
-                            sensor2 = recDataString.substring(11, 15);
-                            sensor3 = recDataString.substring(16, 20);
+                            sensor1 = recDataString.substring(8, 12);
+                            sensor2 = recDataString.substring(14, 18);
+                            sensor3 = recDataString.substring(19, 23);
+                            valorSensor=Double.valueOf(sensor0);
+                            if (valorSensor>150){
+                                iv.setImageDrawable(drawable1);
+                                //negro
 
-                            sensorView0.setText(" Sensor 0 Voltage = " + sensor0 + "V");    //update the textviews with sensor values
-                            sensorView1.setText(" Sensor 1 Voltage = " + sensor1 + "V");
-                            sensorView2.setText(" Sensor 2 Voltage = " + sensor2 + "V");
-                            sensorView3.setText(" Sensor 3 Voltage = " + sensor3 + "V");
+                            }
+                            else{
+                                iv.setImageDrawable(drawable2);
+
+                            }
+                            sensorView0.setText(" Sensor de Linea      = " + sensor0 + "");    //update the textviews with sensor values
+                            sensorView1.setText(" Distancia Sensor 1 = " + sensor1 + "cm");
+                            sensorView2.setText(" Distancia Sensor 2 = " + sensor2 + "cm");
+                            sensorView3.setText("Estado de Funcion  = " + sensor3 + "");
                         }
                         recDataString.delete(0, recDataString.length());                    //clear all string data
                         // strIncom =" ";
@@ -170,6 +189,7 @@ public class MonitorActivity extends Activity {
     }
     private void escribirFicheroMemoriaInterna()
     {
+        Toast.makeText(getBaseContext(), "Registrado", Toast.LENGTH_SHORT).show();
         OutputStreamWriter escritor=null;
         try
         {

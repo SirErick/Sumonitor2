@@ -20,7 +20,7 @@ public class MenuActivity extends AppCompatActivity {
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
         equipo = String.valueOf(newint.getStringExtra(DeviceList.EQUIPO));
         nombre= String.valueOf(newint.getStringExtra(DeviceList.NOMBRE));
-        Toast.makeText(getBaseContext(), equipo+"   "+nombre, Toast.LENGTH_SHORT).show();
+
     }
 
 

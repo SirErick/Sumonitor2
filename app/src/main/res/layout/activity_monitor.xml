@@ -72,10 +72,12 @@
         android:id="@+id/sensorView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="196dp"
+        android:layout_marginTop="54dp"
         android:text="Sensor de Linea               = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/buttonOn"
+        android:layout_alignLeft="@+id/sensorView1"
+        android:layout_alignStart="@+id/sensorView1" />
 
     <Button
         android:layout_width="wrap_content"
@@ -91,6 +93,14 @@
         android:text="REGISTRAR MOVIMIENTO"
         android:id="@+id/buttonEscribir"
         android:layout_above="@+id/testView1"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:id="@+id/imageView"
+        android:src="@drawable/negro"
+        android:layout_above="@+id/buttonEscribir"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
