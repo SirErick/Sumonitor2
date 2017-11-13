@@ -59,15 +59,15 @@ public class MonitorActivity extends Activity {
 
         Intent newint = getIntent();
         Intent newint2= getIntent();
-        equipo = String.valueOf(newint.getStringExtra(MenuActivity.EQUIPO));
-        nombre= String.valueOf(newint2.getStringExtra(MenuActivity.NOMBRE));
+        //equipo = String.valueOf(newint.getStringExtra(MenuActivity.EQUIPO));
+        //nombre= String.valueOf(newint2.getStringExtra(MenuActivity.NOMBRE));
 
 
-        Toast.makeText(getBaseContext(), equipo+" "+nombre, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getBaseContext(), equipo+" "+nombre, Toast.LENGTH_SHORT).show();
         //Link the buttons and textViews to respective views
-        btnOn = (Button) findViewById(R.id.buttonOn);
-        btnOff = (Button) findViewById(R.id.buttonOff);
-        btnTracking = (Button) findViewById(R.id.buttonTracking);
+       // btnOn = (Button) findViewById(R.id.buttonOn);
+        //btnOff = (Button) findViewById(R.id.buttonOff);
+       // btnTracking = (Button) findViewById(R.id.buttonTracking);
         txtString = (TextView) findViewById(R.id.txtString);
         txtStringLength = (TextView) findViewById(R.id.testView1);
         sensorView0 = (TextView) findViewById(R.id.sensorView0);
@@ -75,14 +75,14 @@ public class MonitorActivity extends Activity {
         sensorView2 = (TextView) findViewById(R.id.sensorView2);
         sensorView3 = (TextView) findViewById(R.id.sensorView3);
 
-        btEscribir=(Button) findViewById(R.id.buttonEscribir);
-        btEscribir.setOnClickListener(new OnClickListener() {
+        //btEscribir=(Button) findViewById(R.id.buttonEscribir);
+        /*btEscribir.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 escribirFicheroMemoriaInterna();
             }
         });
-
+*/
 
         bluetoothIn = new Handler() {
             public void handleMessage(android.os.Message msg) {
@@ -129,6 +129,7 @@ public class MonitorActivity extends Activity {
         checkBTState();
 
         // Set up onClick listeners for buttons to send 1 or 0 to turn on/off LED
+        /*
         btnOff.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
                 if (btSocket!=null)
@@ -179,14 +180,17 @@ public class MonitorActivity extends Activity {
                 Toast.makeText(getBaseContext(), "TRACKING ACTIVADO", Toast.LENGTH_SHORT).show();
 
             }
-        });
+        });*/
     }
+
 
     private BluetoothSocket createBluetoothSocket(BluetoothDevice device) throws IOException {
 
         return  device.createRfcommSocketToServiceRecord(BTMODULEUUID);
         //creates secure outgoing connecetion with BT device using UUID
     }
+
+    /*
     private void escribirFicheroMemoriaInterna()
     {
         Toast.makeText(getBaseContext(), "Registrado", Toast.LENGTH_SHORT).show();
@@ -195,7 +199,7 @@ public class MonitorActivity extends Activity {
         {
             escritor=new OutputStreamWriter(openFileOutput("pruebaFichero.txt", Context.MODE_APPEND));
 
-            escritor.write(equipo+";"+nombre+";"+sensor0+";"+sensor1+";"+sensor2+";"+sensor3+"\n");
+            escritor.write(sensor0+";"+sensor1+";"+sensor2+";"+sensor3+"\n");
 
 
         }
@@ -213,7 +217,7 @@ public class MonitorActivity extends Activity {
             }
         }
     }
-
+*/
     @Override
     public void onResume() {
         super.onResume();

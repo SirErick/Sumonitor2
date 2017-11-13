@@ -12,7 +12,8 @@
         android:id="@+id/textView"
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textColor="#ffffff"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -31,5 +32,8 @@
         android:id="@+id/listView"
         android:layout_centerHorizontal="true"
         android:layout_above="@+id/button"
-        android:layout_below="@+id/textView" />
+        android:layout_below="@+id/textView"
+        android:textColor="#ffffff"
+        android:clickable="true"
+        android:background="#9cffffff" />
 </RelativeLayout>

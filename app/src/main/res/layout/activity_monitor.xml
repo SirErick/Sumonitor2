@@ -25,21 +25,7 @@
         android:text=""
         android:textSize="15sp" />
 
-    <Button
-        android:id="@+id/buttonOn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:text="TERMINAR" />
 
-    <Button
-        android:id="@+id/buttonOff"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/buttonOn"
-        android:layout_alignParentRight="true"
-        android:text="EMPEZAR" />
 
     <TextView
         android:id="@+id/sensorView1"
@@ -48,7 +34,8 @@
         android:layout_below="@+id/sensorView0"
         android:layout_centerHorizontal="true"
         android:text="Distancia Ultrasonico 1 = ????"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:id="@+id/sensorView2"
@@ -57,6 +44,7 @@
         android:layout_below="@+id/sensorView1"
         android:layout_centerHorizontal="true"
         android:text="Distancia Ultrasonico 2 = ????"
+        android:textColor="#ffffff"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -66,6 +54,7 @@
         android:layout_below="@+id/sensorView2"
         android:layout_centerHorizontal="true"
         android:text="Estado de funcion          = ????"
+        android:textColor="#ffffff"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -75,32 +64,21 @@
         android:layout_marginTop="54dp"
         android:text="Sensor de Linea               = ????"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_below="@+id/buttonOn"
+
         android:layout_alignLeft="@+id/sensorView1"
-        android:layout_alignStart="@+id/sensorView1" />
+        android:layout_alignStart="@+id/sensorView1"
+        android:textColor="#ffffff"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tracking"
-        android:id="@+id/buttonTracking"
-        android:layout_alignTop="@+id/buttonOn"
-        android:layout_centerHorizontal="true" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="REGISTRAR MOVIMIENTO"
-        android:id="@+id/buttonEscribir"
-        android:layout_above="@+id/testView1"
-        android:layout_centerHorizontal="true" />
+
+
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:id="@+id/imageView"
         android:src="@drawable/negro"
-        android:layout_above="@+id/buttonEscribir"
+        android:layout_marginTop="240dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

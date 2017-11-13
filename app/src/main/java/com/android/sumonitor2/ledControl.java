@@ -24,7 +24,7 @@ package com.android.sumonitor2;
 
     public class ledControl extends ActionBarActivity {
 
-        Button btnOn, btnOff, btnDis, btnizq, btnder;
+        Button btnDel, btnAtr, btnDis, btnizq, btnder;
         SeekBar brightness;
         TextView lumn;
         String address = null;
@@ -46,8 +46,8 @@ package com.android.sumonitor2;
             setContentView(R.layout.activity_led_control);
 
             //botones
-            btnOn = (Button) findViewById(R.id.button2);
-            btnOff = (Button) findViewById(R.id.button3);
+            btnDel = (Button) findViewById(R.id.button2);
+            btnAtr = (Button) findViewById(R.id.button3);
             btnDis = (Button) findViewById(R.id.button4);
             btnizq= (Button) findViewById(R.id.button5);
             btnder=(Button) findViewById(R.id.button6);
@@ -55,17 +55,26 @@ package com.android.sumonitor2;
 
             new ConnectBT().execute(); //Call the class to connect
 
+
+
+
             //commands to be sent to bluetooth
-            btnOn.setOnClickListener(new View.OnClickListener() {
+            btnDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    turnOnLed();      //method to turn on
+                    adelante();
+
+                    //method to turn on
                 }
+
+
+
             });
-            btnOff.setOnClickListener(new View.OnClickListener() {
+            btnAtr.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    turnOffLed();   //method to turn off
+                    parar() ;
+                    //atras();   //method to turn off
                 }
             });
             btnDis.setOnClickListener(new View.OnClickListener() {
@@ -108,13 +117,13 @@ package com.android.sumonitor2;
 
         }
         //yes
-        private void turnOffLed()
+        private void atras()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("TF".toString().getBytes());
+                    btSocket.getOutputStream().write("ATR".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -123,13 +132,13 @@ package com.android.sumonitor2;
             }
         }
         //yes
-        private void turnOnLed()
+        private void adelante()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("TO".toString().getBytes());
+                    btSocket.getOutputStream().write("DEL".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -158,6 +167,21 @@ package com.android.sumonitor2;
                 try
                 {
                     btSocket.getOutputStream().write("IZQ".toString().getBytes());
+                }
+                catch (IOException e)
+                {
+                    msg("Error");
+                }
+            }
+        }
+
+        public void parar()
+        {
+            if (btSocket!=null)
+            {
+                try
+                {
+                    btSocket.getOutputStream().write("STOP".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -235,12 +259,12 @@ package com.android.sumonitor2;
 
                 if (!ConnectSuccess)
                 {
-                    msg("Connection Failed. Is it a SPP Bluetooth? Try again.");
+                    msg("Conexión fallida. por favor intente nuevamente");
                     finish();
                 }
                 else
                 {
-                    msg("Connected.");
+                    msg("Conectado!");
                     isBtConnected = true;
                 }
                 progress.dismiss();

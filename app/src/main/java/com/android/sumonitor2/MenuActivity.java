@@ -9,17 +9,17 @@ import android.widget.Toast;
 
 public class MenuActivity extends AppCompatActivity {
     public String address = null;
-    public static String EQUIPO="EQUIPO",NOMBRE="NOMBRE";
+    //public static String EQUIPO="EQUIPO",NOMBRE="NOMBRE";
     public static String EXTRA_ADDRESS = "device_address";
-    String equipo="",nombre="";
+    //String equipo="",nombre="";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Intent newint = getIntent();
         address = newint.getStringExtra(DeviceList.EXTRA_ADDRESS);
-        equipo = String.valueOf(newint.getStringExtra(DeviceList.EQUIPO));
-        nombre= String.valueOf(newint.getStringExtra(DeviceList.NOMBRE));
+        //equipo = String.valueOf(newint.getStringExtra(DeviceList.EQUIPO));
+        //nombre= String.valueOf(newint.getStringExtra(DeviceList.NOMBRE));
 
     }
 
@@ -33,8 +33,8 @@ public class MenuActivity extends AppCompatActivity {
     public void PantallaMonitor( View view){
         Intent q = new Intent (MenuActivity.this, MonitorActivity.class);
         q.putExtra(EXTRA_ADDRESS, address);
-        q.putExtra(EQUIPO,equipo);
-        q.putExtra(NOMBRE,nombre);
+        //q.putExtra(EQUIPO,equipo);
+        //q.putExtra(NOMBRE,nombre);
         startActivity(q);
     }
 
