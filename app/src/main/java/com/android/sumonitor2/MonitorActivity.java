@@ -76,7 +76,8 @@ public class MonitorActivity extends Activity {
         sensorView3 = (TextView) findViewById(R.id.sensorView3);
 
         //btEscribir=(Button) findViewById(R.id.buttonEscribir);
-        /*btEscribir.setOnClickListener(new OnClickListener() {
+        /*
+        btEscribir.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
                 escribirFicheroMemoriaInterna();

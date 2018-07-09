@@ -3,13 +3,16 @@ package com.android.sumonitor2;
 
     import android.support.v7.app.ActionBarActivity;
     import android.os.Bundle;
+    import android.support.v7.app.AppCompatActivity;
     import android.view.Menu;
     import android.view.MenuItem;
 
     import android.bluetooth.BluetoothSocket;
     import android.content.Intent;
+    import android.view.MotionEvent;
     import android.view.View;
     import android.widget.Button;
+    import android.widget.FrameLayout;
     import android.widget.SeekBar;
     import android.widget.TextView;
     import android.widget.Toast;
@@ -22,9 +25,12 @@ package com.android.sumonitor2;
     import java.util.UUID;
 
 
-    public class ledControl extends ActionBarActivity {
+
+    public class ledControl extends AppCompatActivity {
 
         Button btnDel, btnAtr, btnDis, btnizq, btnder;
+
+
         SeekBar brightness;
         TextView lumn;
         String address = null;
@@ -51,50 +57,114 @@ package com.android.sumonitor2;
             btnDis = (Button) findViewById(R.id.button4);
             btnizq= (Button) findViewById(R.id.button5);
             btnder=(Button) findViewById(R.id.button6);
-//..............
+
+            btnDel.setDrawingCacheEnabled(true);
+
 
             new ConnectBT().execute(); //Call the class to connect
 
 
+            btnDel.setOnTouchListener(new View.OnTouchListener(){
+
+                                          public boolean onTouch(View v, MotionEvent me) {
+                                              // TODO Auto-generated method stub
+
+                                              if (me.getAction() == MotionEvent.ACTION_DOWN) {
+
+                                                  adelante();
 
 
+                                              }
+                                              if (me.getAction() == MotionEvent.ACTION_UP) {
+                                                  parar();
+                                                  //Log.i("Drag", "Stopped Dragging");
+                                              }
+                                                return false;
+                                          }
+            });
+            btnAtr.setOnTouchListener(new View.OnTouchListener(){
+
+                public boolean onTouch(View v, MotionEvent me) {
+                    // TODO Auto-generated method stub
+
+                    if (me.getAction() == MotionEvent.ACTION_DOWN) {
+
+                        atras();
+
+
+                    }
+                    if (me.getAction() == MotionEvent.ACTION_UP) {
+                        parar();
+                        //Log.i("Drag", "Stopped Dragging");
+                    }
+                    return false;
+                }
+            });
+            btnder.setOnTouchListener(new View.OnTouchListener(){
+
+                public boolean onTouch(View v, MotionEvent me) {
+                    // TODO Auto-generated method stub
+
+                    if (me.getAction() == MotionEvent.ACTION_DOWN) {
+
+                        derecha();
+
+
+                    }
+                    if (me.getAction() == MotionEvent.ACTION_UP) {
+                        parar();
+                        //Log.i("Drag", "Stopped Dragging");
+                    }
+                    return false;
+                }
+            });
+            btnizq.setOnTouchListener(new View.OnTouchListener(){
+
+                public boolean onTouch(View v, MotionEvent me) {
+                    // TODO Auto-generated method stub
+
+                    if (me.getAction() == MotionEvent.ACTION_DOWN) {
+
+                        izquierda();
+
+
+                    }
+                    if (me.getAction() == MotionEvent.ACTION_UP) {
+                        parar();
+                        //Log.i("Drag", "Stopped Dragging");
+                    }
+                    return false;
+                }
+            });
+
+
+
+
+
+
+
+/*
             //commands to be sent to bluetooth
             btnDel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    adelante();
 
-                    //method to turn on
+                        adelante();
                 }
 
 
 
             });
-            btnAtr.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    parar() ;
-                    //atras();   //method to turn off
-                }
-            });
+            */
+
             btnDis.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Disconnect(); //close connection
                 }
             });
-            btnizq.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    izquierda();      //method to turn on
-                }
-            });
-            btnder.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    derecha();      //method to turn on
-                }
-            });
+
+
         }
 
 //yes
@@ -117,13 +187,13 @@ package com.android.sumonitor2;
 
         }
         //yes
-        private void atras()
+        public void atras()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("ATR".toString().getBytes());
+                    btSocket.getOutputStream().write("G".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -132,13 +202,13 @@ package com.android.sumonitor2;
             }
         }
         //yes
-        private void adelante()
+        public void adelante()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("DEL".toString().getBytes());
+                    btSocket.getOutputStream().write("F".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -146,13 +216,13 @@ package com.android.sumonitor2;
                 }
             }
         }
-        private void derecha()
+        public void derecha()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("DER".toString().getBytes());
+                    btSocket.getOutputStream().write("R".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -160,13 +230,13 @@ package com.android.sumonitor2;
                 }
             }
         }
-        private void izquierda()
+        public void izquierda()
         {
             if (btSocket!=null)
             {
                 try
                 {
-                    btSocket.getOutputStream().write("IZQ".toString().getBytes());
+                    btSocket.getOutputStream().write("L".toString().getBytes());
                 }
                 catch (IOException e)
                 {
@@ -181,7 +251,7 @@ package com.android.sumonitor2;
             {
                 try
                 {
-                    btSocket.getOutputStream().write("STOP".toString().getBytes());
+                    btSocket.getOutputStream().write("S".toString().getBytes());
                 }
                 catch (IOException e)
                 {

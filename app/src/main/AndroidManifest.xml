@@ -22,11 +22,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".DeviceList" />
-        <activity android:name=".ledControl" />
-        <activity android:name=".MenuActivity" />
-        <activity android:name=".MonitorActivity"></activity>
-        <activity android:name=".MuestraActivity"></activity>
+        <activity android:name=".DeviceList" android:screenOrientation="landscape"></activity>
+        <activity android:name=".ledControl" android:screenOrientation="landscape"></activity>
+        <activity android:name=".MenuActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name=".MonitorActivity" android:screenOrientation="landscape"></activity>
+        <activity android:name=".MuestraActivity" android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>

@@ -61,7 +61,7 @@
         android:id="@+id/sensorView0"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="54dp"
+        android:layout_marginTop="24dp"
         android:text="Sensor de Linea               = ????"
         android:textAppearance="?android:attr/textAppearanceMedium"
 
@@ -78,7 +78,7 @@
         android:layout_height="150dp"
         android:id="@+id/imageView"
         android:src="@drawable/negro"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="140dp"
         android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

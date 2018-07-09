@@ -5,36 +5,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin" tools:context="com.android.sumonitor2.ledControl">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Control Manual SumoBot - by:Erick S."
 
-        android:id="@+id/textView2"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:id="@+id/imageView"
-        android:src="@drawable/image"
-        android:layout_below="@+id/textView2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="ADELANTE"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/button2"
         android:layout_below="@+id/imageView"
+        android:layout_marginTop="30dp"
+
+
         android:layout_centerHorizontal="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DETENER"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/button3"
         android:layout_below="@+id/button6"
         android:layout_centerHorizontal="true" />
@@ -51,18 +38,16 @@
         android:layout_alignParentEnd="true" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="IZQUIERDA"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/button5"
         android:layout_above="@+id/button3"
         android:layout_toLeftOf="@+id/button2"
         android:layout_toStartOf="@+id/button2" />
 
     <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="DERECHA"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:id="@+id/button6"
         android:layout_below="@+id/button2"
         android:layout_toRightOf="@+id/button3"

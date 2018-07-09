@@ -9,13 +9,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.android.sumonitor2.MenuActivity">
 
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+
 
         <Button
             android:layout_width="wrap_content"
@@ -24,8 +18,7 @@
 
             android:onClick="PantallaControl"
             android:padding="100dp"
-            android:id="@+id/buttonControl"
-            android:layout_gravity="center_horizontal" />
+            android:id="@+id/buttonControl" />
 
         <Button
             android:layout_width="wrap_content"
@@ -34,8 +27,11 @@
             android:onClick="PantallaMonitor"
             android:padding="100dp"
             android:id="@+id/buttonMonitor"
-            android:layout_gravity="center_horizontal" />
+            android:layout_gravity="right"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true" />
 
 
-    </LinearLayout>
+
 </RelativeLayout>
